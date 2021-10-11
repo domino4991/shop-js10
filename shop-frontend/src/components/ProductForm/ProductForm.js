@@ -16,12 +16,19 @@ const ProductForm = ({onSubmit}) => {
   const [state, setState] = useState({
     title: "",
     price: "",
-    description: ""
+    description: "",
+    image: null,
   });
 
   const submitFormHandler = e => {
     e.preventDefault();
-    onSubmit({...state});
+
+    const formData = new FormData();
+    Object.keys(state).forEach(key => {
+      formData.append(key, state[key]);
+    });
+
+    onSubmit(formData);
   };
 
   const inputChangeHandler = e => {
@@ -31,6 +38,16 @@ const ProductForm = ({onSubmit}) => {
       return {...prevState, [name]: value};
     });
   };
+
+  const fileChangeHandler = e => {
+    const name = e.target.name;
+    const file = e.target.files[0];
+    setState(prevState => {
+      return {...prevState, [name]: file}
+    });
+  };
+
+  console.log(state);
 
   return (
     <Grid
@@ -45,6 +62,7 @@ const ProductForm = ({onSubmit}) => {
       <Grid item xs>
         <TextField
           fullWidth
+          required
           variant="outlined"
           label="Title"
           name="title"
@@ -56,6 +74,7 @@ const ProductForm = ({onSubmit}) => {
       <Grid item xs>
         <TextField
           fullWidth
+          required
           variant="outlined"
           type="number"
           label="Price"
@@ -67,6 +86,7 @@ const ProductForm = ({onSubmit}) => {
 
       <Grid item xs>
         <TextField
+          required
           fullWidth
           multiline
           rows={3}
@@ -75,6 +95,14 @@ const ProductForm = ({onSubmit}) => {
           name="description"
           value={state.description}
           onChange={inputChangeHandler}
+        />
+      </Grid>
+
+      <Grid item xs>
+        <TextField
+          type="file"
+          name="image"
+          onChange={fileChangeHandler}
         />
       </Grid>
 
