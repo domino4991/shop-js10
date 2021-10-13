@@ -4,8 +4,10 @@ import {BrowserRouter} from "react-router-dom";
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import thunk from "redux-thunk";
 import {Provider} from "react-redux";
+import {ThemeProvider} from "@material-ui/core";
 import App from './App';
 import productsReducer from "./store/reducers/productsReducer";
+import theme from './theme';
 
 const rootReducer = combineReducers({
   products: productsReducer,
@@ -19,9 +21,11 @@ const store = createStore(rootReducer, composeEnhancers(
 
 const app = (
   <Provider store={store}>
-    <BrowserRouter>
-      <App/>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <App/>
+      </BrowserRouter>
+    </ThemeProvider>
   </Provider>
 );
 

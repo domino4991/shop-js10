@@ -3,6 +3,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
+import FileInput from "../UI/FileInput/FileInput";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -61,9 +62,7 @@ const ProductForm = ({onSubmit}) => {
     >
       <Grid item xs>
         <TextField
-          fullWidth
           required
-          variant="outlined"
           label="Title"
           name="title"
           value={state.title}
@@ -73,9 +72,7 @@ const ProductForm = ({onSubmit}) => {
 
       <Grid item xs>
         <TextField
-          fullWidth
           required
-          variant="outlined"
           type="number"
           label="Price"
           name="price"
@@ -87,10 +84,8 @@ const ProductForm = ({onSubmit}) => {
       <Grid item xs>
         <TextField
           required
-          fullWidth
           multiline
           rows={3}
-          variant="outlined"
           label="Description"
           name="description"
           value={state.description}
@@ -99,8 +94,8 @@ const ProductForm = ({onSubmit}) => {
       </Grid>
 
       <Grid item xs>
-        <TextField
-          type="file"
+        <FileInput
+          label="Image"
           name="image"
           onChange={fileChangeHandler}
         />
